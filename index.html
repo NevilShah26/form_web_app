@@ -14,6 +14,7 @@
     try {
         let response = await fetch("https://script.google.com/macros/s/AKfycbzgfmAGCAD92O-P0R0ehkllQ_8DxrUIXG1o9tZuTSJgMXI-adraENiMm2A8P9a-Mx0GsQ/exec    ", {
             method: "POST",
+            mode: "no-cors",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ rollNumber: rollNumber }) // ✅ Ensure body is sent properly
         });
