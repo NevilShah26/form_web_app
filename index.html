@@ -3,34 +3,36 @@
 <head>
     <title>Roll Number Verification</title>
     <script>
-        async function checkRollNumber() {
-            let rollNumber = document.getElementById("rollNumber").value; // Get value from input
+       async function checkRollNumber() {
+    let rollNumber = document.getElementById("rollNumber").value;
 
-            if (!rollNumber) {
-                alert("Please enter a roll number.");
-                return;
-            }
+    if (!rollNumber) {
+        alert("Please enter a roll number");
+        return;
+    }
 
-            try {
-                let response = await fetch("https://script.google.com/macros/s/AKfycbyB_glfEOzmCz1n2N70JBUOOtRxgQWJYx7t2lFcRVR5ZeF9Y0JgDGViWkaFtc3WIoZj0w/exec", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ rollNumber: rollNumber }) // Send correct data
-                });
+    try {
+        let response = await fetch("https://script.google.com/macros/s/AKfycbx-YOUR-SCRIPT-ID/exec", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ rollNumber: rollNumber }) // ✅ Ensure body is sent properly
+        });
 
-                let result = await response.json();
-                console.log("Response received:", result);
+        let result = await response.json();  // ✅ Read JSON response
 
-                if (result.status === "success") {
-                    window.location.href = "https://forms.gle/j98rGTHggyxE8rvU7";  // Redirect to form
-                } else {
-                    alert("This roll number has already been used!");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Something went wrong. Please try again!");
-            }
+        console.log("Response received:", result);
+
+        if (result.status === "success") {
+            window.location.href = "https://forms.gle/xGxcxPMdg4ZxH5nM7";  // Redirect to form
+        } else {
+            alert("This roll number has already been used!");
         }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again!");
+    }
+}
+
     </script>
 </head>
 <body>
