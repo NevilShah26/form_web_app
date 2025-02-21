@@ -5,7 +5,7 @@
     <script>
         async function checkRollNumber() {
             let rollNumber = document.getElementById("rollNumber").value;
-            let response = await fetch("https://script.google.com/macros/s/AKfycbyWDQgYru9sI7DGPz-9Ggy8cCsSryjqw6uW6B-ikKtuSqTQcRQLddP2vyEWj5T4l-xZIQ/exec", {
+            let response = await fetch("https://script.google.com/macros/library/d/1VOjgTpkZjI_S5vxqN3Ge4-eEkdskra1CYFeP3s-VEIUuPVD5MCBpEerT/3", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ rollNumber: rollNumber })
