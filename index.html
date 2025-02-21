@@ -12,7 +12,7 @@
             }
 
             try {
-                let response = await fetch("https://script.google.com/macros/s/AKfycbyUMYxtaQbuFyH6s38VtQsLaPxo_mcfKN4yIoPlf5a6PIah37IU43CQR6FnCpAHAUFCYw/exec", {
+                let response = await fetch("https://script.google.com/macros/s/AKfycbyB_glfEOzmCz1n2N70JBUOOtRxgQWJYx7t2lFcRVR5ZeF9Y0JgDGViWkaFtc3WIoZj0w/exec", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ rollNumber: rollNumber }) // Send correct data
@@ -22,7 +22,7 @@
                 console.log("Response received:", result);
 
                 if (result.status === "success") {
-                    window.location.href = "https://forms.gle/xGxcxPMdg4ZxH5nM7";  // Redirect to form
+                    window.location.href = "https://forms.gle/j98rGTHggyxE8rvU7";  // Redirect to form
                 } else {
                     alert("This roll number has already been used!");
                 }
