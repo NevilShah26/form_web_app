@@ -4,52 +4,33 @@
     <title>Roll Number Verification</title>
     <script>
         async function checkRollNumber() {
-    try {
-        let response = await fetch("https://script.google.com/macros/s/AKfycbyUMYxtaQbuFyH6s38VtQsLaPxo_mcfKN4yIoPlf5a6PIah37IU43CQR6FnCpAHAUFCYw/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ rollNumber: rollNumber })
-        });
+            let rollNumber = document.getElementById("rollNumber").value; // Get value from input
 
-        let result = await response.json();
-        console.log("Response received:", result);
+            if (!rollNumber) {
+                alert("Please enter a roll number.");
+                return;
+            }
 
-        if (result.status === "success") {
-            window.location.href = "https://forms.gle/xGxcxPMdg4ZxH5nM7";  // Redirect to form
-        } else {
-            alert("This roll number has already been used!");
+            try {
+                let response = await fetch("https://script.google.com/macros/s/AKfycbyUMYxtaQbuFyH6s38VtQsLaPxo_mcfKN4yIoPlf5a6PIah37IU43CQR6FnCpAHAUFCYw/exec", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ rollNumber: rollNumber }) // Send correct data
+                });
+
+                let result = await response.json();
+                console.log("Response received:", result);
+
+                if (result.status === "success") {
+                    window.location.href = "https://forms.gle/xGxcxPMdg4ZxH5nM7";  // Redirect to form
+                } else {
+                    alert("This roll number has already been used!");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again!");
+            }
         }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Something went wrong. Please try again!");
-    }
-        }
-        function doPost(e) {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var data = sheet.getDataRange().getValues();
-    var rollNumbers = data.map(row => row[1]); // Adjust if roll number is in a different column
-
-    var requestData = JSON.parse(e.postData.contents);
-    var newRollNumber = requestData.rollNumber;
-
-    var response = {};
-
-    if (rollNumbers.includes(newRollNumber)) {
-        response = { status: "error", message: "Roll number already exists!" };
-    } else {
-        sheet.appendRow([new Date(), newRollNumber]); // Save new roll number
-        response = { status: "success", message: "Roll number accepted!" };
-    }
-
-    return ContentService.createTextOutput(JSON.stringify(response))
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeaders({
-            "Access-Control-Allow-Origin": "*",  
-            "Access-Control-Allow-Methods": "POST",  
-            "Access-Control-Allow-Headers": "Content-Type"
-        });
-}
-
     </script>
 </head>
 <body>
