@@ -18,6 +18,32 @@
                 alert("This roll number has already been used!");
             }
         }
+        function doPost(e) {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = sheet.getDataRange().getValues();
+    var rollNumbers = data.map(row => row[1]); // Adjust if roll number is in a different column
+
+    var requestData = JSON.parse(e.postData.contents);
+    var newRollNumber = requestData.rollNumber;
+
+    var response = {};
+
+    if (rollNumbers.includes(newRollNumber)) {
+        response = { status: "error", message: "Roll number already exists!" };
+    } else {
+        sheet.appendRow([new Date(), newRollNumber]); // Save new roll number
+        response = { status: "success", message: "Roll number accepted!" };
+    }
+
+    return ContentService.createTextOutput(JSON.stringify(response))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeaders({
+            "Access-Control-Allow-Origin": "*",  
+            "Access-Control-Allow-Methods": "POST",  
+            "Access-Control-Allow-Headers": "Content-Type"
+        });
+}
+
     </script>
 </head>
 <body>
