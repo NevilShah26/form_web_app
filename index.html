@@ -4,19 +4,25 @@
     <title>Roll Number Verification</title>
     <script>
         async function checkRollNumber() {
-            let rollNumber = document.getElementById("rollNumber").value;
-            let response = await fetch("https://script.google.com/macros/library/d/1VOjgTpkZjI_S5vxqN3Ge4-eEkdskra1CYFeP3s-VEIUuPVD5MCBpEerT/3", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ rollNumber: rollNumber })
-            });
+    try {
+        let response = await fetch("https://script.google.com/macros/s/AKfycbyUMYxtaQbuFyH6s38VtQsLaPxo_mcfKN4yIoPlf5a6PIah37IU43CQR6FnCpAHAUFCYw/exec", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ rollNumber: rollNumber })
+        });
 
-            let result = await response.json();
-            if (result.status === "success") {
-                window.location.href = "https://forms.gle/xGxcxPMdg4ZxH5nM7";  // Redirect to form
-            } else {
-                alert("This roll number has already been used!");
-            }
+        let result = await response.json();
+        console.log("Response received:", result);
+
+        if (result.status === "success") {
+            window.location.href = "https://forms.gle/xGxcxPMdg4ZxH5nM7";  // Redirect to form
+        } else {
+            alert("This roll number has already been used!");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again!");
+    }
         }
         function doPost(e) {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
